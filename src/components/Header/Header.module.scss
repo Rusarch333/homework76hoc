@@ -1,9 +1,9 @@
 @use '/src/common/styles/templates' as *;
 
-.light{
+.light {
   @extend %light;
 }
-.dark{
+.dark {
   @extend %dark;
 }
 

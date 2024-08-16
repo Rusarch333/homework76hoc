@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import { getComponentConstantsForLanguage } from '../../utils/utils';
+import { WithLanguage } from '../HOCs';
+import CONSTANTS from './../../constants';
+
+const { LANGUAGE_CONSTANTS } = CONSTANTS;
+
+const updateWindowWorkLanguage = (language) =>
+  getComponentConstantsForLanguage(LANGUAGE_CONSTANTS, 'WINDOW_WORK', language);
 
 class WindowWork extends Component {
   constructor(props) {
@@ -7,6 +15,9 @@ class WindowWork extends Component {
       w: window.innerWidth,
       h: window.innerHeight,
     };
+    this.WINDOW_WORK_LANGUAGE_CONSTANTS = updateWindowWorkLanguage(
+      props.language
+    );
   }
   handlerResizeWindow = () => {
     this.setState({
@@ -17,18 +28,31 @@ class WindowWork extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.handlerResizeWindow);
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     window.removeEventListener('resize', this.handlerResizeWindow);
   }
+
   render() {
     const { w, h } = this.state;
-
+    this.WINDOW_WORK_LANGUAGE_CONSTANTS = updateWindowWorkLanguage(
+      this.props.language
+    );
     return (
       <div>
-        width = {w}px, height = {h}px
+        {this.WINDOW_WORK_LANGUAGE_CONSTANTS.DIV_CONTENT_WIDTH +
+          ' = ' +
+          w +
+          ' ' +
+          this.WINDOW_WORK_LANGUAGE_CONSTANTS.DIV_CONTENT_PX +
+          ', ' +
+          this.WINDOW_WORK_LANGUAGE_CONSTANTS.DIV_CONTENT_HEIGHT +
+          ' = ' +
+          h +
+          ' ' +
+          this.WINDOW_WORK_LANGUAGE_CONSTANTS.DIV_CONTENT_PX}
       </div>
     );
   }
 }
 
-export default WindowWork;
+export default WithLanguage(WindowWork);

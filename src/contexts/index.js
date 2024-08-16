@@ -4,4 +4,4 @@ export const UserContext = createContext();
 
 export const ThemeContext = createContext();
 
-export const LangContext = createContext();
+export const LanguageContext = createContext();

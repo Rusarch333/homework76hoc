@@ -1,5 +1,5 @@
 import React from 'react';
-import { WithUser } from '../../HOCs';
+import { WithUser } from '../../HOCs/index';
 
 const CardUser = ({
   user: {
@@ -9,6 +9,7 @@ const CardUser = ({
     password = 'qwerty',
     ava = '/images/noname.webp',
   },
+  language
 }) => {
   return (
     <article>

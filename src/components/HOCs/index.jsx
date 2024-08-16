@@ -2,7 +2,7 @@
 
 // Наши HOC будут работать с контекстами
 // А точнее они генерируют переданный им внутренний компонент, передавая ему определенный контекст!
-import { ThemeContext, UserContext } from '../../contexts';
+import { ThemeContext, UserContext, LanguageContext } from '../../contexts';
 
 /*
   export const WithTheme = (InnerComponent) => {
@@ -32,11 +32,11 @@ import { ThemeContext, UserContext } from '../../contexts';
 export const WithTheme = (InnerComponent) => (props) => {
   return (
     <ThemeContext.Consumer>
-      {([theme, setTheme]) => (
+      {([theme, toggleTheme]) => (
         // Возвращаем внутренний компонент (переданный как параметр), оборачивая его в тематический контекст
         // Поля с контекста передаем в внутренний компонент в виде пропсов
         // Не забываем также пробросить пропсы внутреннего компонента {...props} !!!
-        <InnerComponent theme={theme} setTheme={setTheme} {...props} />
+        <InnerComponent theme={theme} toggleTheme={toggleTheme} {...props} />
       )}
     </ThemeContext.Consumer>
   );
@@ -48,5 +48,20 @@ export const WithUser = (InnerComponent) => (props) => {
     <UserContext.Consumer>
       {(user) => <InnerComponent user={user} {...props} />}
     </UserContext.Consumer>
+  );
+};
+
+// Тут все тоже самое что и выше
+export const WithLanguage = (InnerComponent) => (props) => {
+  return (
+    <LanguageContext.Consumer>
+      {([language, setLanguage]) => (
+        <InnerComponent
+          language={language}
+          setLanguage={setLanguage}
+          {...props}
+        />
+      )}
+    </LanguageContext.Consumer>
   );
 };
